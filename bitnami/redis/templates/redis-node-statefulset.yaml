@@ -160,9 +160,9 @@ spec:
                 - sh
                 - -c
                 {{- if .Values.sentinel.enabled }}
-                - /health/ping_readiness_local.sh {{ .Values.slave.livenessProbe.timeoutSeconds }}
+                - /health/ping_readiness_local.sh {{ .Values.slave.readinessProbe.timeoutSeconds }}
                 {{- else }}
-                - /health/ping_readiness_local_and_master.sh {{ .Values.slave.livenessProbe.timeoutSeconds }}
+                - /health/ping_readiness_local_and_master.sh {{ .Values.slave.readinessProbe.timeoutSeconds }}
                 {{- end }}
           {{- else if .Values.slave.customReadinessProbe }}
           readinessProbe: {{- toYaml .Values.slave.customReadinessProbe | nindent 12 }}
@@ -265,7 +265,7 @@ spec:
               command:
                 - sh
                 - -c
-                - /health/ping_sentinel.sh {{ .Values.sentinel.livenessProbe.timeoutSeconds }}
+                - /health/ping_sentinel.sh {{ .Values.sentinel.readinessProbe.timeoutSeconds }}
           {{- else if .Values.sentinel.customReadinessProbe }}
           readinessProbe: {{- toYaml .Values.sentinel.customReadinessProbe | nindent 12 }}
           {{- end }}
