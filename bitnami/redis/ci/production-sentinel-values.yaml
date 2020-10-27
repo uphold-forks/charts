@@ -93,6 +93,9 @@ sentinel:
   ##
   livenessProbe:
     enabled: true
+    entrypoint:
+      - sh
+      - -c
     initialDelaySeconds: 5
     periodSeconds: 5
     timeoutSeconds: 5
@@ -100,6 +103,9 @@ sentinel:
     failureThreshold: 5
   readinessProbe:
     enabled: true
+    entrypoint:
+      - sh
+      - -c
     initialDelaySeconds: 5
     periodSeconds: 5
     timeoutSeconds: 1
@@ -272,6 +278,9 @@ master:
   ##
   livenessProbe:
     enabled: true
+    entrypoint:
+      - sh
+      - -c
     initialDelaySeconds: 5
     periodSeconds: 5
     timeoutSeconds: 5
@@ -279,6 +288,9 @@ master:
     failureThreshold: 5
   readinessProbe:
     enabled: true
+    entrypoint:
+      - sh
+      - -c
     initialDelaySeconds: 5
     periodSeconds: 5
     timeoutSeconds: 1
@@ -427,6 +439,9 @@ slave:
   ##
   livenessProbe:
     enabled: true
+    entrypoint:
+      - sh
+      - -c
     initialDelaySeconds: 30
     periodSeconds: 10
     timeoutSeconds: 5
@@ -434,6 +449,9 @@ slave:
     failureThreshold: 5
   readinessProbe:
     enabled: true
+    entrypoint:
+      - sh
+      - -c
     initialDelaySeconds: 5
     periodSeconds: 10
     timeoutSeconds: 10

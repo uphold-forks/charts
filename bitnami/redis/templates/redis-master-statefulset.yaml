@@ -143,8 +143,7 @@ spec:
             failureThreshold: {{ .Values.master.livenessProbe.failureThreshold }}
             exec:
               command:
-                - sh
-                - -c
+                {{- toYaml .Values.master.livenessProbe.entrypoint | nindent 16 }}
                 - /health/ping_liveness_local.sh {{ .Values.master.livenessProbe.timeoutSeconds }}
           {{- else if .Values.master.customLivenessProbe }}
           livenessProbe: {{- toYaml .Values.master.customLivenessProbe | nindent 12 }}
@@ -158,8 +157,7 @@ spec:
             failureThreshold: {{ .Values.master.readinessProbe.failureThreshold }}
             exec:
               command:
-                - sh
-                - -c
+                {{- toYaml .Values.master.readinessProbe.entrypoint | nindent 16 }}
                 - /health/ping_readiness_local.sh {{ .Values.master.readinessProbe.timeoutSeconds }}
           {{- else if .Values.master.customReadinessProbe }}
           readinessProbe: {{- toYaml .Values.master.customReadinessProbe | nindent 12 }}

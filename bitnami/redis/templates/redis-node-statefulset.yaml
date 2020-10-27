@@ -138,11 +138,11 @@ spec:
             failureThreshold: {{ .Values.slave.livenessProbe.failureThreshold}}
             exec:
               command:
-                - sh
-                - -c
                 {{- if .Values.sentinel.enabled }}
+                {{- toYaml .Values.sentinel.livenessProbe.entrypoint | nindent 16 }}
                 - /health/ping_liveness_local.sh {{ .Values.slave.livenessProbe.timeoutSeconds }}
                 {{- else }}
+                {{- toYaml .Values.slave.livenessProbe.entrypoint | nindent 16 }}
                 - /health/ping_liveness_local_and_master.sh {{ .Values.slave.livenessProbe.timeoutSeconds }}
                 {{- end }}
           {{- else if .Values.slave.customLivenessProbe }}
@@ -160,8 +160,10 @@ spec:
                 - sh
                 - -c
                 {{- if .Values.sentinel.enabled }}
+                {{- toYaml .Values.sentinel.readinessProbe.entrypoint | nindent 16 }}
                 - /health/ping_readiness_local.sh {{ .Values.slave.readinessProbe.timeoutSeconds }}
                 {{- else }}
+                {{- toYaml .Values.slave.readinessProbe.entrypoint | nindent 16 }}
                 - /health/ping_readiness_local_and_master.sh {{ .Values.slave.readinessProbe.timeoutSeconds }}
                 {{- end }}
           {{- else if .Values.slave.customReadinessProbe }}
@@ -248,8 +250,7 @@ spec:
             failureThreshold: {{ .Values.sentinel.livenessProbe.failureThreshold }}
             exec:
               command:
-                - sh
-                - -c
+                {{- toYaml .Values.sentinel.livenessProbe.entrypoint | nindent 16 }}
                 - /health/ping_sentinel.sh {{ .Values.sentinel.livenessProbe.timeoutSeconds }}
           {{- else if .Values.sentinel.customLivenessProbe }}
           livenessProbe: {{- toYaml .Values.sentinel.customLivenessProbe | nindent 12 }}
@@ -263,8 +264,7 @@ spec:
             failureThreshold: {{ .Values.sentinel.readinessProbe.failureThreshold }}
             exec:
               command:
-                - sh
-                - -c
+                {{- toYaml .Values.sentinel.readinessProbe.entrypoint | nindent 16 }}
                 - /health/ping_sentinel.sh {{ .Values.sentinel.readinessProbe.timeoutSeconds }}
           {{- else if .Values.sentinel.customReadinessProbe }}
           readinessProbe: {{- toYaml .Values.sentinel.customReadinessProbe | nindent 12 }}
